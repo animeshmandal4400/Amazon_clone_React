@@ -1,17 +1,28 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./register.css"
+import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from '../../firebase';
 
 const Register = () => {
-    //const history = useNavigate();
-    const [email, setEmail] = useState("");
-    const [Password, setPassword] = useState("");
+    const history = useNavigate();
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [Password, setPassword] = useState('');
 
-    const register = (e) => {
+
+
+    const register = async (e) => {
         e.preventDefault();
-
-
+        try {
+            const user = await createUserWithEmailAndPassword(auth, email, Password);
+            alert("Sucessfully created")
+            if (user) {
+                history('/login')
+            }
+        } catch (error) {
+            alert(error.message);
+        }
     };
 
     return (
@@ -26,7 +37,7 @@ const Register = () => {
 
                     <h5>Your name</h5>
 
-                    <input type="text" placeholder="First and last name" />
+                    <input type="text" placeholder="First and last name" value={name} onChange={(e) => setName(e.target.value)} />
 
 
                     <h5>Mobile number</h5>
@@ -41,14 +52,14 @@ const Register = () => {
 
                     <h5>Email</h5>
 
-                    <input type="text" placeholder="Email" value={email} onClick={(e) => setEmail(e.target.value)} />
+                    <input type="email" placeholder="Email" Value={email} onChange={(e) => setEmail(e.target.value)} />
 
                     <h5>Password</h5>
 
-                    <input type="text" placeholder="Atleast 6 numbers" value={Password} onClick={(e) => setPassword(e.target.value)} />
+                    <input type="password" placeholder="At least 6 characters" Value={Password} onChange={(e) => setPassword(e.target.value)} />
 
                     <button className='register__button' type='submit' onClick={register}>
-                        <h5>Continue</h5>
+                        <h4>Sign Up</h4>
                     </button>
                     <div className="detail">
                         <p>Already have an account?</p>

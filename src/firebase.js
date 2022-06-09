@@ -1,11 +1,8 @@
 import { initializeApp } from "firebase/app";
-
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import {  getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore/lite';
 
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyDjik3vamMzadsohPIgmg6wCfvVOsPXwqQ",
   authDomain: "clone-4a714.firebaseapp.com",
@@ -14,10 +11,11 @@ const firebaseConfig = {
   messagingSenderId: "874031753512",
   appId: "1:874031753512:web:c9bf76d4896352ed5ec81d",
   measurementId: "G-4762P014BR"
-  };
+}
 
   const app = initializeApp(firebaseConfig);
-  const db = app.firestore();
-  const auth = firebase.auth();
+  export const db = getFirestore(app);
+  export const auth = getAuth();
 
-  export {db, auth};
+  
+

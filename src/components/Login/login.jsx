@@ -1,13 +1,26 @@
 import React, { useState } from 'react'
 import './login.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase';
+
 
 const Login = () => {
+  const history = useNavigate()
   const [email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 
-  const signIn = (e) => {
+  const signIn = async (e) => {
     e.preventDefault();
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, Password);
+      //alert("Sucessfully login")
+      if (user) {
+        history('/')
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -19,11 +32,11 @@ const Login = () => {
       <div className="login__container">
         <h1>Sign in</h1>
         <form>
-          <h5>E-mail</h5>
+          <h5>Email</h5>
           <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
 
           <h5>Password</h5>
-          <input type="text" value={Password} onChange={(e) => setPassword(e.target.value)} />
+          <input type="password" value={Password} onChange={(e) => setPassword(e.target.value)} />
 
 
           <button type='Submit' onClick={signIn} className='login_signIn'>

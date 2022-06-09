@@ -2,6 +2,7 @@ import React from "react";
 import "./Checkoutproduct.css";
 import { useStateValue } from "../redux/StateProvider";
 
+
 function Checkoutproduct({ id, image, title, price, rating }) {
   const [{basket},dispatch ] =useStateValue();
 

@@ -1,0 +1,16 @@
+.footer {
+
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(37, 37, 40);
+    z-index: 100;
+
+}
+
+.footer>h4 {
+
+    text-align: center;
+    color: azure;
+
+}
